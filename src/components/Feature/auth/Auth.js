@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { eye } from "../../../assets";
 
 const Auth = () => {
   const [user, setUser] = useState({
@@ -62,10 +63,15 @@ const Auth = () => {
         <input
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
+        />
+        <img
+          className="w-5 cursor-pointer"
+          src={eye}
+          onClick={() => setShowPassword(!showPassword)}
         />
       </div>
       <div className="mb-5">
