@@ -1,11 +1,17 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Login, User } from "../Pages";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ProtectedRoutes = () => {
   const navigate = useNavigate();
-  const localStorageToken = false;
-  return localStorageToken ? <User />  : <Login />;
+  const localStorageToken = true;
+
+  useEffect(() => {
+    if (!localStorageToken) {
+      navigate("/");
+    } 
+  }, [navigate, localStorageToken]);
+
+  return <Outlet />
 };
 
 export default ProtectedRoutes;

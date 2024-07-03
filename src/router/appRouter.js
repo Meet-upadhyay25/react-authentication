@@ -18,6 +18,10 @@ const appRouter = createBrowserRouter([
           {
             path:"/user",
             element:<User />
+          },
+          {
+            path:"/dummy",
+            element:<h1>Dummy</h1>
           }
         ]
       }
