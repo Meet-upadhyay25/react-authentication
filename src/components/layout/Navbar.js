@@ -1,8 +1,12 @@
 import React from 'react'
+import { logo } from '../../assets'
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
+    <header className='flex items-center p-6 pl-20'>
+      <img src={logo} />
+      <span>Authentication</span>
+    </header>
   )
 }
 
