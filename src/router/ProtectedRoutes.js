@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Login, User } from "../Pages";
 
 const ProtectedRoutes = () => {
-  return (
-    <div>ProtectedRoutes</div>
-  )
-}
+  const navigate = useNavigate();
+  const localStorageToken = false;
+  return localStorageToken ? <User />  : <Login />;
+};
 
-export default ProtectedRoutes
+export default ProtectedRoutes;
