@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useSelector } from "react-redux";
 import useAvatar from "../hooks/useAvatar";
 import useCurrenUser from "../hooks/useCurrentUser";
@@ -7,6 +7,7 @@ const User = () => {
   const [file, setFile] = useState(null);
   const { avatar: uploadAvatar } = useAvatar();
   const [isFetching, setIsFetching] = useState(false);
+  const user = useSelector(store => store.user.user)
   
   useCurrenUser(isFetching);
   const handleUpload = async () => {
@@ -21,7 +22,7 @@ const User = () => {
   return (
     <section className="p-6">
       <h1 className="text-center mb-5">
-        Welcome to User Profile <span>{}</span>
+        Welcome to User Profile <span>{user.username}</span>
       </h1>
       <div>
         <div>

@@ -25,6 +25,7 @@ const Navbar = () => {
               alt=""
             />
             <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+          <div>{user.username}</div>
           </div>
           <button
             onClick={handleLogout}
