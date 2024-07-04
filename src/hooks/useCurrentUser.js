@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../reducer/userSlice";
 
-const useCurrenUser = () => {
+const useCurrenUser = (isFetching) => {
   // https://api.freeapi.app/api/v1/users/current-user
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.auth.accessToken);
   const currentUser = async () => {
     try {
@@ -17,15 +18,18 @@ const useCurrenUser = () => {
         }
       );
       const data = await response.json();
-    //   console.log(data.data);
-      setUser(data.data);
+      dispatch(addUser(data.data));
+      console.log(data.data);
     } catch (error) {}
   };
-  useEffect(() => {
-    currentUser();
-  }, []);
-//   console.log(user);
-  return { user };
+
+  //   console.log(user);
+  useEffect(()=>{
+    if(isFetching){
+        currentUser()
+    }
+  },[isFetching])
+
 };
 
 export default useCurrenUser;

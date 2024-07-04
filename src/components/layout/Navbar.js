@@ -5,9 +5,10 @@ import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
   const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
+  const user = useSelector(store=>store.user.user)
   const { logout } = useLogout();
   const handleLogout = async () => {
-    await logout();
+    await logout(); 
   };
   return (
     <header className="flex items-center p-6 pl-20 justify-around shadow-xl">
@@ -17,14 +18,14 @@ const Navbar = () => {
       </div>
       {isAuthenticated && (
         <div className="flex items-center gap-5">
-          {/* <div class="relative">
+          <div class="relative">
             <img
               class="w-10 h-10 rounded-full"
               src={user.avatar.url}
               alt=""
             />
             <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-          </div> */}
+          </div>
           <button
             onClick={handleLogout}
             type="button"

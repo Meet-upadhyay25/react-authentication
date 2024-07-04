@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useAvatar from "../hooks/useAvatar";
 import useCurrenUser from "../hooks/useCurrentUser";
@@ -6,9 +6,16 @@ import useCurrenUser from "../hooks/useCurrentUser";
 const User = () => {
   const [file, setFile] = useState(null);
   const { avatar: uploadAvatar } = useAvatar();
-  // console.log(file);
+  const [isFetching, setIsFetching] = useState(false);
+  
+  useCurrenUser(isFetching);
   const handleUpload = async () => {
-    await uploadAvatar(file);
+    try {
+      await uploadAvatar(file);
+      setIsFetching(true);
+    } catch (error) {
+      setIsFetching(false);
+    }
   };
 
   return (
