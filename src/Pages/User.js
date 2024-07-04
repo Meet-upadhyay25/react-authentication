@@ -1,15 +1,23 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import useAvatar from "../hooks/useAvatar";
 import useCurrenUser from "../hooks/useCurrentUser";
+import useChangePassword from "../hooks/useChangePassword";
 
 const User = () => {
   const [file, setFile] = useState(null);
-  const { avatar: uploadAvatar } = useAvatar();
   const [isFetching, setIsFetching] = useState(false);
-  const user = useSelector(store => store.user.user)
-  
+  const [changePassword, setChangePassword] = useState(false);
+  const [password, setPassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+  });
+
+  const user = useSelector((store) => store.user.user);
+  const { avatar: uploadAvatar } = useAvatar();
   useCurrenUser(isFetching);
+  const { changePassword: changePasswords } = useChangePassword();
+
   const handleUpload = async () => {
     try {
       await uploadAvatar(file);
@@ -17,6 +25,14 @@ const User = () => {
     } catch (error) {
       setIsFetching(false);
     }
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    await changePasswords({
+      newPassword: password.newPassword,
+      oldPassword: password.oldPassword,
+    });
   };
 
   return (
@@ -39,6 +55,44 @@ const User = () => {
           </div>
         </div>
       </div>
+      <div className="mt-5">
+        <span>ChangePassword</span>
+        <button
+          className="border border-red-500"
+          onClick={() => setChangePassword(!changePassword)}
+        >
+          ClickHere
+        </button>
+      </div>
+      {changePassword && (
+        <div>
+          <form onSubmit={handleChangePassword}>
+            <div>
+              <label>old Password</label>
+              <input
+                value={password.oldPassword}
+                onChange={(e) =>
+                  setPassword({ ...password, oldPassword: e.target.value })
+                }
+                type="password"
+                placeholder="old Password"
+              />
+            </div>
+            <div>
+              <label>New Password</label>
+              <input
+                value={password.newPassword}
+                onChange={(e) =>
+                  setPassword({ ...password, newPassword: e.target.value })
+                }
+                type="password"
+                placeholder="new Password"
+              />
+            </div>
+            <button type="submit">ChangePassword</button>
+          </form>
+        </div>
+      )}
     </section>
   );
 };
