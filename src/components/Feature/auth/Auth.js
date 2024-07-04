@@ -27,7 +27,6 @@ const Auth = () => {
         username: user.username,
       });
       setMessage("User register succesfully! Please Login")
-      // console.log(data);
       setUser({ username: "", email: "", password: "" });
     } else {
       await handleSignIn({

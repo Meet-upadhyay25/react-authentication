@@ -17,7 +17,6 @@ const useAvatar = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
     } catch (error) {}
   };
   return { avatar };

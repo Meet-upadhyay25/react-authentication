@@ -3,7 +3,7 @@ import { logoutUser } from "../reducer/authSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// https://api.freeapi.app/api/v1/users/logout
+
 const useLogout = () => {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate()
@@ -22,7 +22,6 @@ const useLogout = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
       if (data.success) {
         dispatch(logoutUser());
         navigate("/")
