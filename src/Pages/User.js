@@ -33,6 +33,7 @@ const User = () => {
       newPassword: password.newPassword,
       oldPassword: password.oldPassword,
     });
+    setChangePassword(false)
   };
 
   return (
