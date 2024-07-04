@@ -7,7 +7,7 @@ import useEmailVerified from "../hooks/useEmailVerified";
 
 const User = () => {
   const [file, setFile] = useState(null);
-  // const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [password, setPassword] = useState({
     oldPassword: "",
@@ -16,33 +16,35 @@ const User = () => {
 
   const user = useSelector((store) => store.user.user);
   const { avatar: uploadAvatar } = useAvatar();
-  const {currentUser} = useCurrenUser()
-
+  const { currentUser } = useCurrenUser();
+  
   const { changePassword: changePasswords } = useChangePassword();
-  const {emailVerified} = useEmailVerified()
-
+  const { emailVerified } = useEmailVerified();
+  
+  if (isFetching) {
+    currentUser();
+  }
+  
   const handleUpload = async () => {
     try {
       await uploadAvatar(file);
-      await currentUser()
-  
-    } catch (error) {
-   
-    }
+      setIsFetching(true);
+    } catch (error) {}
   };
-
+  
   const handleChangePassword = async (e) => {
     e.preventDefault();
     await changePasswords({
       newPassword: password.newPassword,
       oldPassword: password.oldPassword,
     });
-    setChangePassword(false)
+    setChangePassword(false);
   };
-
-  const handleVerifyEmail = async() =>{
-    await emailVerified()
-  }
+  
+  const handleVerifyEmail = async () => {
+    await emailVerified();
+  };
+  if (!user) return null;
   return (
     <section className="p-6">
       <h1 className="text-center mb-5">

@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../reducer/userSlice";
 
-const useCurrenUser = (isFetching) => {
+const useCurrenUser = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.auth.accessToken);
 
