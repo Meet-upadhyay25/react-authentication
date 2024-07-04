@@ -2,9 +2,6 @@ import { useState } from "react";
 
 const useSignUp = () => {
   const [error, setError] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [statusCode, setStatusCode] = useState(null);
   const signUp = async (user) => {
     try {
       const response = await fetch(
@@ -18,9 +15,6 @@ const useSignUp = () => {
         }
       );
       const data = await response.json();
-      setMessage(data.data.message);
-      setStatusCode(data.data.statusCode);
-      setSuccess(data.data.success);
       return data;
       // console.log(data);
     } catch (error) {
@@ -29,7 +23,7 @@ const useSignUp = () => {
     }
   };
 
-  return { signUp, error, message, success, statusCode };
+  return { signUp, error};
 };
 
 export default useSignUp;

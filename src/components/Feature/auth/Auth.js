@@ -12,10 +12,11 @@ const Auth = () => {
   });
   const [signup, setSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState(null)
 
 
-  const { signIn: handleSignIn, message: signInMessage } = useSignIn();
-  const { signUp: handleSignUp, message: signUpMessage } = useSignUp();
+  const { signIn: handleSignIn } = useSignIn();
+  const { signUp: handleSignUp } = useSignUp();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const Auth = () => {
         password: user.password,
         username: user.username,
       });
+      setMessage("User register succesfully! Please Login")
       // console.log(data);
       setUser({ username: "", email: "", password: "" });
     } else {
@@ -119,6 +121,9 @@ const Auth = () => {
             </span>
           </p>
         )}
+      </div>
+      <div>
+        {message}
       </div>
       <button
         type="submit"
