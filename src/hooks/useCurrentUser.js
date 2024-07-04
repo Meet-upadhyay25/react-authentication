@@ -1,11 +1,11 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../reducer/userSlice";
 
 const useCurrenUser = (isFetching) => {
- 
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.auth.accessToken);
+
   const currentUser = async () => {
     try {
       const response = await fetch(
@@ -19,17 +19,10 @@ const useCurrenUser = (isFetching) => {
       );
       const data = await response.json();
       dispatch(addUser(data.data));
-     
     } catch (error) {}
   };
 
-
-  useEffect(()=>{
-    if(isFetching){
-        currentUser()
-    }
-  },[isFetching])
-
+  return { currentUser };
 };
 
 export default useCurrenUser;

@@ -5,7 +5,7 @@ import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
   const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
-  const user = useSelector(store=>store.user.user)
+  const user = useSelector(store=>store.user.user)  
   const { logout } = useLogout();
   const handleLogout = async () => {
     await logout(); 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../reducer/authSlice";
 import { useNavigate } from "react-router-dom";
+import { addUser } from "../reducer/userSlice";
 
 const useSignIn = () => {
   const [error, setError] = useState(null);
@@ -29,7 +30,7 @@ const useSignIn = () => {
             refreshToken: data.data.refreshToken,
           })
         );
-   
+        dispatch(addUser(data.data.user))
         navigate("/user");
         return data;
       }

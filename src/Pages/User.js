@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import useAvatar from "../hooks/useAvatar";
 import useCurrenUser from "../hooks/useCurrentUser";
 import useChangePassword from "../hooks/useChangePassword";
+import useEmailVerified from "../hooks/useEmailVerified";
 
 const User = () => {
   const [file, setFile] = useState(null);
-  const [isFetching, setIsFetching] = useState(false);
+  // const [isFetching, setIsFetching] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [password, setPassword] = useState({
     oldPassword: "",
@@ -15,15 +16,18 @@ const User = () => {
 
   const user = useSelector((store) => store.user.user);
   const { avatar: uploadAvatar } = useAvatar();
-  useCurrenUser(isFetching);
+  const {currentUser} = useCurrenUser()
+
   const { changePassword: changePasswords } = useChangePassword();
+  const {emailVerified} = useEmailVerified()
 
   const handleUpload = async () => {
     try {
       await uploadAvatar(file);
-      setIsFetching(true);
+      await currentUser()
+  
     } catch (error) {
-      setIsFetching(false);
+   
     }
   };
 
@@ -36,6 +40,9 @@ const User = () => {
     setChangePassword(false)
   };
 
+  const handleVerifyEmail = async() =>{
+    await emailVerified()
+  }
   return (
     <section className="p-6">
       <h1 className="text-center mb-5">
@@ -94,6 +101,9 @@ const User = () => {
           </form>
         </div>
       )}
+      <div>
+        <button onClick={handleVerifyEmail}>Verify Email</button>
+      </div>
     </section>
   );
 };

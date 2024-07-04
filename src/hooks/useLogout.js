@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../reducer/authSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { removeUser } from "../reducer/userSlice";
 
 
 const useLogout = () => {
@@ -24,6 +25,7 @@ const useLogout = () => {
       const data = await response.json();
       if (data.success) {
         dispatch(logoutUser());
+        dispatch(removeUser())
         navigate("/")
       }
       setMessage(data.message);
